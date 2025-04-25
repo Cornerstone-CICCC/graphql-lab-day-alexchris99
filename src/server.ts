@@ -21,8 +21,9 @@ const apolloServer = new ApolloServer({
 const startServer = async () => {
   try {
     // Connect to MongoDB
-    const MONGO_URI = process.env.MONGO_URI!
-    await mongoose.connect(MONGO_URI, { dbName: 'my_store' })
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
+        const MONGO_URL = process.env.MONGODB_URL!
+    await mongoose.connect(MONGO_URL, { dbName: 'my_store' })
     console.log("Connected to MongoDB")
 
     // Apollo Server
@@ -42,7 +43,7 @@ const startServer = async () => {
       console.log(`Server is running on http://localhost:${PORT}/graphql...`)
     })
   } catch (err) {
-    console.error(`Error starting server...`)
+    console.error(`Error starting server...${err}`)
   }
 }
 
